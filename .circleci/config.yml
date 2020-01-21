@@ -8,10 +8,12 @@ commands:
       - run:
           name: Export required environment variables.
           command: |
+            #Example of interpolation within CircleCI
+            #export INTERPOLATE_VAR=${A}${B}
             cat \<<EOF >> $BASH_ENV
-            #Terraform backend variables
-            export STATE_BUCKET=devops-projects-${CIRCLE_PROJECT_REPONAME}
-            export STATE_PREFIX=terraform/state/${CIRCLE_BRANCH}
+            #Export any extra variables that require interpolation here OR vararibles that do not require encryption.
+            #export EXAMPLE_VAR = INTERPOLATE_VAR
+            #export NOT_SECECRET = "nonsecret stuff"
             EOF
   run-terraform:
     description: "Run Terraform commands."
