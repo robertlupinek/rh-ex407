@@ -24,7 +24,7 @@ commands:
           name: Run Terraform commands.
           command: |
             . ${BASH_ENV}
-            cd ${CIRCLE_BRANCH}
+            cd terraform
             terraform init -backend-config="bucket=${STATE_BUCKET}" -backend-config="prefix=${STATE_PREFIX}"
             terraform << parameters.run_command >>
 jobs:
@@ -52,4 +52,4 @@ workflows:
       - terraform:
           filters:
             branches:
-              only: master        
+              only: master
