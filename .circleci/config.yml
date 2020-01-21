@@ -1,0 +1,55 @@
+version: 2.1
+
+
+commands:
+  setup-environment-vars:
+    description: "Setup environment variables."
+    steps:
+      - run:
+          name: Export required environment variables.
+          command: |
+            cat \<<EOF >> $BASH_ENV
+            #Terraform backend variables
+            export STATE_BUCKET=devops-projects-${CIRCLE_PROJECT_REPONAME}
+            export STATE_PREFIX=terraform/state/${CIRCLE_BRANCH}
+            EOF
+  run-terraform:
+    description: "Run Terraform commands."
+    parameters:
+      run_command:
+        type: string
+        default: "validate"
+    steps:
+      - run:
+          name: Run Terraform commands.
+          command: |
+            . ${BASH_ENV}
+            cd ${CIRCLE_BRANCH}
+            terraform init -backend-config="bucket=${STATE_BUCKET}" -backend-config="prefix=${STATE_PREFIX}"
+            terraform << parameters.run_command >>
+jobs:
+
+  terraform:
+    docker:
+      - image: hashicorp/terraform:latest
+    steps:
+      - checkout
+      - setup-environment-vars
+      - run-terraform:
+        run_command: validate
+      - run-terraform:
+        run_command: plan -input=false
+      - run-terraform:
+        run_command: apply -input=false
+
+
+
+#These are the workflows that define what CircleCI actually does.
+workflows:
+  version: 2.1
+  terraform:
+    jobs:
+      - terraform:
+          filters:
+            branches:
+              only: master        
