@@ -8,10 +8,18 @@ variable "aws_region" {
   default = "us-east-2"
 }
 
+variable "availability_zone" {
+  type = string
+  description = "AWS AZ to deploy infrastructure"
+  default = "a"
+}
+
+
+
 variable "project_name" {
   type = string
   description = "Project name to use for tags and resource names"
-  default = "us-east-2"
+  default = "devops"
 }
 
 variable "to_jump_cidr" {
