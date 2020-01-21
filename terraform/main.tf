@@ -19,9 +19,9 @@ terraform {
 resource "aws_vpc" "devops" {
   cidr_block = "10.0.0.0/16"
   tags = {
-    Name = "{$var.project_name}"
+    Name = "${var.project_name}"
     Terraform = "true"
-    ProjectName = "{$var.project_name}"
+    ProjectName = ".project_name}"
   }
 }
 
@@ -29,9 +29,9 @@ resource "aws_vpc" "devops" {
 resource "aws_internet_gateway" "devops" {
   vpc_id = aws_vpc.devops.id
   tags = {
-    Name = "{$var.project_name}"
+    Name = "${var.project_name}"
     Terraform = "true"
-    ProjectName = "{$var.project_name}"
+    ProjectName = "${var.project_name}"
   }
 }
 
