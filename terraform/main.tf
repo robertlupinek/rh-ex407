@@ -43,9 +43,9 @@ resource "aws_subnet" "devops" {
   cidr_block = "10.0.0.0/24"
   availability_zone = "${var.aws_region}${var.availability_zone}"
   tags = {
-    Name = "{$var.project_name}"
+    Name = "${var.project_name}"
     Terraform = "true"
-    ProjectName = "{$var.project_name}"
+    ProjectName = "${var.project_name}"
   }
 }
 
@@ -58,9 +58,9 @@ resource "aws_route_table" "devops_igw" {
     gateway_id = aws_internet_gateway.devops.id
   }
   tags = {
-    Name = "{$var.project_name}-igw"
+    Name = "${var.project_name}-igw"
     Terraform = "true"
-    ProjectName = "{$var.project_name}"
+    ProjectName = "${var.project_name}"
   }
 }
 
