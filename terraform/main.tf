@@ -7,8 +7,8 @@ provider "aws" {
 
 terraform {
   backend "s3" {
-    bucket = "lupinek-state-bucket"
-    key = "state/rh-ex407"
+    bucket = "xxxxxxxxxxx"
+    key = "xxxxxxxxxxx"
     region = "us-east-2"
   }
 }

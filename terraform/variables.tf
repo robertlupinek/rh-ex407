@@ -17,5 +17,5 @@ variable "project_name" {
 variable "to_jump_cidr" {
   type = string
   description = "IP Address to allow access to you Jump host"
-  default = "173.21.99.171"
+  default = "x.x.x.x/32"
 }
