@@ -25,7 +25,7 @@ commands:
           command: |
             . ${BASH_ENV}
             cd terraform
-            terraform init -backend-config="bucket=${STATE_BUCKET}" -backend-config="prefix=${STATE_PREFIX}"
+            terraform init -backend-config="bucket=${STATE_BUCKET}" -backend-config="key=${STATE_PREFIX}" -backend-config="region=${TF_VAR_aws_region}"
             terraform << parameters.run_command >>
 jobs:
 
