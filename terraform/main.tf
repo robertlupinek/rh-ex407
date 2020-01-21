@@ -28,7 +28,7 @@ resource "aws_vpc" "devops" {
 #Create the subnet for the project
 
 resource "aws_subnet" "devops" {
-  vpc_id = aws_vpc.devops
+  vpc_id = aws_vpc.devops.id
   cidr_block = "10.0.0.0/24"
   availability_zone = "${var.aws_region}${var.availability_zone}"
   tags = {
@@ -43,7 +43,7 @@ resource "aws_subnet" "devops" {
 resource "aws_security_group" "jump_host" {
   name        = "Jump Host"
   description = "Allow ssh from home to jump host"
-  vpc_id      = aws_vpc.devops
+  vpc_id      = aws_vpc.devops.id
 
   ingress {
     from_port   = 22
