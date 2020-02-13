@@ -108,7 +108,7 @@ resource "aws_security_group" "devops_hosts" {
 
 ## Elastic IP Addresses
 
-resource "aws_eip" "lb" {
+resource "aws_eip" "jump_host" {
   instance = "${aws_instance.jump_host.id}"
   vpc      = true
 }
@@ -133,7 +133,7 @@ resource "aws_instance" "ansible_host_01" {
   subnet_id = aws_subnet.devops.id
   key_name = var.key_name
   tags = {
-    Name = "${var.project_name}-ansible-host-01"
+    Name = "${var.project_name}-ansible-host-01" 
   }
 }
 resource "aws_instance" "ansible_host_02" {
