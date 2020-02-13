@@ -15,7 +15,7 @@ commands:
             #export EXAMPLE_VAR=INTERPOLATE_VAR
             #export NOT_SECECRET="nonsecret stuff"
             #If you need CircleCI to do other than apply your terraform code change the command here.
-            export TERRAFORM_COMMAND="apply"
+            export TERRAFORM_COMMAND="destroy"
             #Set the region you want to deploy to
             export TF_VAR_aws_region="us-east-1"
             EOF
