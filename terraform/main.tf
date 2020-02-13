@@ -118,7 +118,7 @@ resource "aws_eip" "jump_host" {
 resource "aws_instance" "jump_host" {
   ami           = var.default_ami
   instance_type = "t2.micro"
-  security_groups = ["${aws_security_group.jump_host.id}"]
+  security_groups = ["${aws_security_group.jump_host.name}"]
   subnet_id = aws_subnet.devops.id
   key_name = var.key_name
   tags = {
@@ -129,17 +129,17 @@ resource "aws_instance" "jump_host" {
 resource "aws_instance" "ansible_host_01" {
   ami           = var.default_ami
   instance_type = "t2.micro"
-  security_groups = ["${aws_security_group.devops_hosts.id}"]
+  security_groups = ["${aws_security_group.devops_hosts.name}"]
   subnet_id = aws_subnet.devops.id
   key_name = var.key_name
   tags = {
-    Name = "${var.project_name}-ansible-host-01" 
+    Name = "${var.project_name}-ansible-host-01"
   }
 }
 resource "aws_instance" "ansible_host_02" {
   ami           = var.default_ami
   instance_type = "t2.micro"
-  security_groups = ["${aws_security_group.devops_hosts.id}"]
+  security_groups = ["${aws_security_group.devops_hosts.name}"]
   subnet_id = aws_subnet.devops.id
   key_name = var.key_name
   tags = {
