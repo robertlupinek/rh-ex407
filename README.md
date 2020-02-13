@@ -1,2 +1,3 @@
 # rh-ex407
-Repository for notes and system system for RHCS Ansible EX407 Exam
+
+Repository for CI, IaC, and Ansible code, and notes for the RHCS Ansible EX407 Exam
