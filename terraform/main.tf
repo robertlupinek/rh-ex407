@@ -85,7 +85,7 @@ resource "aws_security_group" "jump_hosts" {
     cidr_blocks = ["${var.to_jump_cidr}"]
   }
   tags = {
-    Name = "${var.project_name}-jump-host"
+    Name = "${var.project_name}-jump-hosts"
   }
 }
 
