@@ -12,8 +12,10 @@ commands:
             #export INTERPOLATE_VAR=${A}${B}
             cat \<<EOF >> $BASH_ENV
             #Export any extra variables that require interpolation here OR vararibles that do not require encryption.
-            #export EXAMPLE_VAR = INTERPOLATE_VAR
-            #export NOT_SECECRET = "nonsecret stuff"
+            #export EXAMPLE_VAR=INTERPOLATE_VAR
+            #export NOT_SECECRET="nonsecret stuff"
+            #If you need CircleCI to do other than apply your terraform code change the command here.
+            export TERRAFORM_COMMAND="apply"
             EOF
   run-terraform:
     description: "Run Terraform commands."
@@ -42,7 +44,7 @@ jobs:
       - run-terraform:
           run_command: plan -input=false
       - run-terraform:
-          run_command: destroy -input=false -auto-approve
+          run_command: ${TERRAFORM_COMMAND} -input=false -auto-approve
 
 
 
