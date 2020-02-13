@@ -5,7 +5,7 @@
 variable "aws_region" {
   type = string
   description = "AWS Region to deploy infrastructure"
-  default = "us-east-2"
+  default = "us-east-1"
 }
 
 variable "availability_zone" {
@@ -31,11 +31,11 @@ variable "key_name" {
 variable "default_ami" {
   type = string
   description = "Default AMI to deploy."
-  default = "ami-4bf3d731"
+  default = "ami-02eac2c0129f6376b"
 }
 
 variable "to_jump_cidr" {
   type = string
   description = "IP Address to allow access to you Jump host"
-  default = "x.x.x.x/32"
+  default = "173.21.99.171/32"
 }
