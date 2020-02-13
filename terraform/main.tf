@@ -105,7 +105,7 @@ resource "aws_security_group" "devops_hosts" {
 resource "aws_instance" "jump_host" {
   ami           = "${var.default_ami}"
   instance_type = "t2.micro"
-  security_groups = = ["${aws_security_group.jump_host.id}"]
+  security_groups = ["${aws_security_group.jump_host.id}"]
   subnet_id = aws_subnet.devops.id
   key_name = "${var.key_name}"
   tags = {
