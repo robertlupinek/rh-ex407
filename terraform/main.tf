@@ -99,7 +99,7 @@ resource "aws_security_group" "devops_hosts" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    security_groups = ["${aws_security_group.jump_host.id}"]
+    security_groups = ["${aws_security_group.jump_hosts.id}"]
   }
   tags = {
     Name = "${var.project_name}-devops-hosts"
