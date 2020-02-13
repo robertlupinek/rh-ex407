@@ -2,7 +2,7 @@
 
 provider "aws" {
   version = "~> 2.0"
-  region  = "${var.aws_region}"
+  region  = var.aws_region
 }
 
 terraform {
@@ -19,9 +19,9 @@ terraform {
 resource "aws_vpc" "devops" {
   cidr_block = "10.0.0.0/16"
   tags = {
-    Name = "${var.project_name}"
+    Name = var.project_name
     Terraform = "true"
-    ProjectName = ".project_name}"
+    ProjectName = var.project_name
   }
 }
 
@@ -29,9 +29,9 @@ resource "aws_vpc" "devops" {
 resource "aws_internet_gateway" "devops" {
   vpc_id = aws_vpc.devops.id
   tags = {
-    Name = "${var.project_name}"
+    Name = var.project_name
     Terraform = "true"
-    ProjectName = "${var.project_name}"
+    ProjectName = var.project_name
   }
 }
 
@@ -43,9 +43,9 @@ resource "aws_subnet" "devops" {
   cidr_block = "10.0.0.0/24"
   availability_zone = "${var.aws_region}${var.availability_zone}"
   tags = {
-    Name = "${var.project_name}"
+    Name = var.project_name
     Terraform = "true"
-    ProjectName = "${var.project_name}"
+    ProjectName = var.project_name
   }
 }
 
@@ -60,7 +60,7 @@ resource "aws_route_table" "devops_igw" {
   tags = {
     Name = "${var.project_name}-igw"
     Terraform = "true"
-    ProjectName = "${var.project_name}"
+    ProjectName = var.project_name
   }
 }
 
@@ -103,11 +103,11 @@ resource "aws_security_group" "devops_hosts" {
 ## Jump host
 
 resource "aws_instance" "jump_host" {
-  ami           = "${var.default_ami}"
+  ami           = var.default_ami
   instance_type = "t2.micro"
   security_groups = ["${aws_security_group.jump_host.id}"]
   subnet_id = aws_subnet.devops.id
-  key_name = "${var.key_name}"
+  key_name = var.key_name
   tags = {
     Name = "devops-jump-host"
   }
