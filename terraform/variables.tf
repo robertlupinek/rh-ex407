@@ -22,6 +22,18 @@ variable "project_name" {
   default = "devops"
 }
 
+variable "key_name" {
+  type = string
+  description = "Name of the key pair you want assigned to instances."
+  default = "devops"
+}
+
+variable "default_ami" {
+  type = string
+  description = "Default AMI to deploy."
+  default = "ami-4bf3d731"
+}
+
 variable "to_jump_cidr" {
   type = string
   description = "IP Address to allow access to you Jump host"
