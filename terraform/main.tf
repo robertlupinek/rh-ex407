@@ -106,6 +106,9 @@ resource "aws_security_group" "devops_hosts" {
   }
 }
 
+## Elastic IP Addresses
+
+
 ## Jump host
 
 resource "aws_instance" "jump_host" {
@@ -116,5 +119,26 @@ resource "aws_instance" "jump_host" {
   key_name = var.key_name
   tags = {
     Name = "${var.project_name}-jump-host"
+  }
+}
+
+resource "aws_instance" "ansible_host_01" {
+  ami           = var.default_ami
+  instance_type = "t2.micro"
+  security_groups = ["${aws_security_group.devops_hosts.id}"]
+  subnet_id = aws_subnet.devops.id
+  key_name = var.key_name
+  tags = {
+    Name = "${var.project_name}-ansible-host-01"
+  }
+}
+resource "aws_instance" "ansible_host_02" {
+  ami           = var.default_ami
+  instance_type = "t2.micro"
+  security_groups = ["${aws_security_group.devops_hosts.id}"]
+  subnet_id = aws_subnet.devops.id
+  key_name = var.key_name
+  tags = {
+    Name = "${var.project_name}-ansible-host-02"
   }
 }
