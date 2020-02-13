@@ -35,7 +35,18 @@ commands:
             terraform << parameters.run_command >>
 jobs:
 
-  terraform:
+  terraform-plan-only:
+    docker:
+      - image: hashicorp/terraform:latest
+    steps:
+      - checkout
+      - setup-environment-vars
+      - run-terraform:
+          run_command: validate
+      - run-terraform:
+          run_command: plan -input=false
+
+  terraform-apply:
     docker:
       - image: hashicorp/terraform:latest
     steps:
@@ -48,14 +59,16 @@ jobs:
       - run-terraform:
           run_command: ${TERRAFORM_COMMAND} -input=false -auto-approve
 
-
-
 #These are the workflows that define what CircleCI actually does.
 workflows:
   version: 2.1
   terraform:
     jobs:
-      - terraform:
+      - terraform-plan-only:
+          filters:
+            branches:
+              ignore: master
+      - terraform-apply:
           filters:
             branches:
               only: master
