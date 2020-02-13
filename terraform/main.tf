@@ -84,6 +84,12 @@ resource "aws_security_group" "jump_hosts" {
     protocol    = "tcp"
     cidr_blocks = ["${var.to_jump_cidr}"]
   }
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
   tags = {
     Name = "${var.project_name}-jump-hosts"
   }
@@ -101,6 +107,12 @@ resource "aws_security_group" "devops_hosts" {
     protocol    = "tcp"
     security_groups = ["${aws_security_group.jump_hosts.id}"]
   }
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }    
   tags = {
     Name = "${var.project_name}-devops-hosts"
   }
