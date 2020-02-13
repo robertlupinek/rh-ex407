@@ -92,6 +92,7 @@ resource "aws_security_group" "jump_hosts" {
   }
   tags = {
     Name = "${var.project_name}-jump-hosts"
+    Project = var.project_name
   }
 }
 
@@ -112,9 +113,10 @@ resource "aws_security_group" "devops_hosts" {
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
-  }    
+  }
   tags = {
     Name = "${var.project_name}-devops-hosts"
+    Project = var.project_name
   }
 }
 
@@ -135,6 +137,8 @@ resource "aws_instance" "jump_host" {
   key_name = var.key_name
   tags = {
     Name = "${var.project_name}-jump-host"
+    Project = var.project_name
+    instance-parker = "workdays"
   }
 }
 
@@ -146,8 +150,11 @@ resource "aws_instance" "ansible_host_01" {
   key_name = var.key_name
   tags = {
     Name = "${var.project_name}-ansible-host-01"
+    Project = var.project_name
+    instance-parker = "workdays"
   }
 }
+
 resource "aws_instance" "ansible_host_02" {
   ami           = var.default_ami
   instance_type = "t2.micro"
@@ -156,5 +163,7 @@ resource "aws_instance" "ansible_host_02" {
   key_name = var.key_name
   tags = {
     Name = "${var.project_name}-ansible-host-02"
+    Project = var.project_name
+    instance-parker = "workdays"
   }
 }
