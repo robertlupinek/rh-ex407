@@ -42,7 +42,7 @@ jobs:
       - run-terraform:
           run_command: plan -input=false
       - run-terraform:
-          run_command: apply -input=false -auto-approve
+          run_command: destroy -input=false -auto-approve
 
 
 
