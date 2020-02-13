@@ -108,6 +108,10 @@ resource "aws_security_group" "devops_hosts" {
 
 ## Elastic IP Addresses
 
+resource "aws_eip" "lb" {
+  instance = "${aws_instance.jump_host.id}"
+  vpc      = true
+}
 
 ## Jump host
 
