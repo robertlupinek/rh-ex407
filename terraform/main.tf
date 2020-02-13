@@ -74,7 +74,7 @@ resource "aws_route_table_association" "devops" {
 ## Security Groups
 
 resource "aws_security_group" "jump_host" {
-  name        = "Jump Host"
+  name        = "${var.project_name}-jump-host"
   description = "Allow ssh from home to jump host"
   vpc_id      = aws_vpc.devops.id
 
@@ -84,11 +84,14 @@ resource "aws_security_group" "jump_host" {
     protocol    = "tcp"
     cidr_blocks = ["${var.to_jump_cidr}"]
   }
+  tags = {
+    Name = "${var.project_name}-jump-host"
+  }
 }
 
 
 resource "aws_security_group" "devops_hosts" {
-  name        = "Devops Hosts"
+  name        = "${var.project_name}-devops-hosts"
   description = "Allow ssh from Jump host to Devops hosts"
   vpc_id      = aws_vpc.devops.id
 
@@ -97,6 +100,9 @@ resource "aws_security_group" "devops_hosts" {
     to_port     = 22
     protocol    = "tcp"
     security_groups = ["${aws_security_group.jump_host.id}"]
+  }
+  tags = {
+    Name = "${var.project_name}-devops-hosts"
   }
 }
 
@@ -109,6 +115,6 @@ resource "aws_instance" "jump_host" {
   subnet_id = aws_subnet.devops.id
   key_name = var.key_name
   tags = {
-    Name = "devops-jump-host"
+    Name = "${var.project_name}-jump-host"
   }
 }

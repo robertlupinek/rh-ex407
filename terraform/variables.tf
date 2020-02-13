@@ -34,8 +34,9 @@ variable "default_ami" {
   default = "ami-02eac2c0129f6376b"
 }
 
+#This is overridden in the CI secrets
 variable "to_jump_cidr" {
   type = string
   description = "IP Address to allow access to you Jump host"
-  default = "173.21.99.171/32"
+  default = "x.x.x.x"
 }
