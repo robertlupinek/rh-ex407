@@ -73,7 +73,7 @@ resource "aws_route_table_association" "devops" {
 
 ## Security Groups
 
-resource "aws_security_group" "jump_host" {
+resource "aws_security_group" "jump_hosts" {
   name        = "${var.project_name}-jump-host"
   description = "Allow ssh from home to jump host"
   vpc_id      = aws_vpc.devops.id
