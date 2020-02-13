@@ -96,8 +96,8 @@ resource "aws_security_group" "devops_hosts" {
   vpc_id      = aws_vpc.devops.id
 
   ingress {
-    from_port   = 22
-    to_port     = 22
+    from_port   = 23
+    to_port     = 23
     protocol    = "tcp"
     security_groups = ["${aws_security_group.jump_host.id}"]
   }
@@ -118,7 +118,7 @@ resource "aws_eip" "jump_host" {
 resource "aws_instance" "jump_host" {
   ami           = var.default_ami
   instance_type = "t2.micro"
-  vpc_security_group_ids = ["${aws_security_group.jump_host.id}"]
+  vpc_security_group_ids = ["${aws_security_group.devops_host.id}"]
   subnet_id = aws_subnet.devops.id
   key_name = var.key_name
   tags = {
