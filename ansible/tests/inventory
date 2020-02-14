@@ -1,0 +1,6 @@
+[jumphosts]
+ip-10-0-0-107.ec2.internal
+
+[ansible-hosts]
+ip-10-0-0-144.ec2.internal
+ip-10-0-0-207.ec2.internal
