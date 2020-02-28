@@ -1,7 +1,12 @@
-#Install packages
-yum install git vim awscli zip -y
+#!/bin/bash
+# User data script for  the Jump hosts EC2 Instance
+# This sets up some basic packages and configure a basic ansible inventory
+# to allow for easy target host setup.
 
-#Create hosts file
+### Install packages
+yum install git vim awscli zip ansible -y
+
+### Create hosts file
 echo "[lab_servers]" >> /etc/ansible/hosts
 echo "jump-host ansible_host=${jump_host_private_ip}" >> /etc/ansible/hosts
 echo "ansible-host-01 ansible_host=${ansible_host_01_private_ip}" >> /etc/ansible/hosts
