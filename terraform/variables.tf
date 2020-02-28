@@ -44,3 +44,8 @@ variable "jump_host_private_ip" {
   description = "IP Address to assign to the jump host"
   default = "10.0.0.100"
 }
+
+variable "private_key" {
+  type = string
+  description = "Private key for the jump host"
+}

@@ -11,3 +11,9 @@ echo "[lab_servers]" >> /etc/ansible/hosts
 echo "jump-host ansible_host=${jump_host_private_ip}" >> /etc/ansible/hosts
 echo "ansible-host-01 ansible_host=${ansible_host_01_private_ip}" >> /etc/ansible/hosts
 echo "ansible-host-02 ansible_host=${ansible_host_02_private_ip}" >> /etc/ansible/hosts
+
+
+### Create the centos user's private key
+echo "${ansible_private}" >> /home/centos/.ssh/id_rsa
+chown centos:centos /home/centos/.ssh/id_rsa
+chmod 0600 /home/centos/.ssh/id_rsa

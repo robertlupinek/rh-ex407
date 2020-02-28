@@ -142,7 +142,7 @@ resource "aws_instance" "jump_host" {
     instance-parker = "workdays"
   }
 
-  user_data = templatefile("${path.module}/templates/jump_host_user_data.tmpl", { jump_host_private_ip = var.jump_host_private_ip, ansible_host_01_private_ip = aws_instance.ansible_host_01.private_ip, ansible_host_02_private_ip = aws_instance.ansible_host_02.private_ip })
+  user_data = templatefile("${path.module}/templates/jump_host_user_data.tmpl", { jump_host_private_ip = var.jump_host_private_ip, ansible_host_01_private_ip = aws_instance.ansible_host_01.private_ip, ansible_host_02_private_ip = aws_instance.ansible_host_02.private_ip, ansible_private = var.private_key })
 }
 
 resource "aws_instance" "ansible_host_01" {
