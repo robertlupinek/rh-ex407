@@ -140,6 +140,10 @@ resource "aws_instance" "jump_host" {
     Project = var.project_name
     instance-parker = "workdays"
   }
+  user_data = templatefile("${path.module}/templates/jump_host_user_data.tmpl", {
+      jump_host_private_ip = var.jump_host_private_ip
+      ip_addrs = ["10.0.0.1", "10.0.0.2"]
+    })
 }
 
 resource "aws_instance" "ansible_host_01" {

@@ -14,8 +14,6 @@ variable "availability_zone" {
   default = "a"
 }
 
-
-
 variable "project_name" {
   type = string
   description = "Project name to use for tags and resource names"
@@ -39,4 +37,10 @@ variable "to_jump_cidr" {
   type = string
   description = "IP Address to allow access to you Jump host"
   default = "x.x.x.x"
+}
+
+variable "jump_host_private_ip" {
+  type = string
+  description = "IP Address to assign to the jump host"
+  default = "10.0.0.100"
 }
