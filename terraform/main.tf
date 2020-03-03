@@ -131,7 +131,7 @@ resource "aws_eip" "jump_host" {
 
 resource "aws_instance" "jump_host" {
   ami           = var.default_ami
-  instance_type = "t2.nano"
+  instance_type = "t2.micro"
   vpc_security_group_ids = ["${aws_security_group.jump_hosts.id}"]
   subnet_id = aws_subnet.devops.id
   private_ip = var.jump_host_private_ip
@@ -144,13 +144,12 @@ resource "aws_instance" "jump_host" {
     Project = var.project_name
     instance-parker = "workdays"
   }
-
   user_data = templatefile("${path.module}/templates/jump_host_user_data.tmpl", { jump_host_private_ip = var.jump_host_private_ip, ansible_host_01_private_ip = aws_instance.ansible_host_01.private_ip, ansible_host_02_private_ip = aws_instance.ansible_host_02.private_ip })
 }
 
 resource "aws_instance" "ansible_host_01" {
   ami           = var.default_ami
-  instance_type = "t2.nano"
+  instance_type = "t2.micro"
   vpc_security_group_ids = ["${aws_security_group.devops_hosts.id}"]
   subnet_id = aws_subnet.devops.id
   key_name = var.key_name
@@ -166,7 +165,7 @@ resource "aws_instance" "ansible_host_01" {
 
 resource "aws_instance" "ansible_host_02" {
   ami           = var.default_ami
-  instance_type = "t2.nano"
+  instance_type = "t2.micro"
   vpc_security_group_ids = ["${aws_security_group.devops_hosts.id}"]
   subnet_id = aws_subnet.devops.id
   key_name = var.key_name
