@@ -14,6 +14,10 @@ echo "ansible-host-02 ansible_host=${ansible_host_02_private_ip}" >> /etc/ansibl
 
 
 ### Create the centos user's private key
-echo "${ansible_private}" >> /home/centos/.ssh/id_rsa
+touch /home/centos/.ssh/id_rsa
 chown centos:centos /home/centos/.ssh/id_rsa
 chmod 0600 /home/centos/.ssh/id_rsa
+
+cd /home/centos
+git clone https://github.com/robertlupinek/rh-ex407.git
+chown -R centos:centos rh-ex407

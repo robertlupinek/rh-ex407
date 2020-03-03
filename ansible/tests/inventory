@@ -2,8 +2,28 @@
 ip-10-0-0-107.ec2.internal
 
 [ansible-hosts]
-ip-10-0-0-144.ec2.internal
+#### Example showing to set a variable on a single host
+ip-10-0-0-144.ec2.internal test_var="test"
 ip-10-0-0-207.ec2.internal
 
-[example-shorthand]
-host[01:99].webservers.com
+[all-aws:children]
+jumphosts
+ansible-hosts
+
+
+### Multiple hosts using shorthand
+#[example-shorthand]
+#host[01:99].webservers.com
+
+### Assign vars to all hosts in a group
+#[atlanta]
+#Example of single
+#host1
+#host2
+#
+#[atlanta:vars]
+#ntp_server=ntp.atlanta.example.com
+#proxy=proxy.atlanta.example.com
+
+### Defining aliases allows you to create a host with an aliase and predefined ports and connection information
+#jumper ansible_port=5555 ansible_host=192.0.2.50
