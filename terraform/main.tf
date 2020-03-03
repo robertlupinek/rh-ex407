@@ -131,14 +131,14 @@ resource "aws_eip" "jump_host" {
 
 resource "aws_instance" "jump_host" {
   ami           = var.default_ami
-  instance_type = "t2.micro"
+  instance_type = "t2.nano"
   vpc_security_group_ids = ["${aws_security_group.jump_hosts.id}"]
   subnet_id = aws_subnet.devops.id
   private_ip = var.jump_host_private_ip
   key_name = var.key_name
   root_block_device {
     delete_on_termination = true
-  }   
+  }
   tags = {
     Name = "${var.project_name}-jump-host"
     Project = var.project_name
@@ -150,7 +150,7 @@ resource "aws_instance" "jump_host" {
 
 resource "aws_instance" "ansible_host_01" {
   ami           = var.default_ami
-  instance_type = "t2.micro"
+  instance_type = "t2.nano"
   vpc_security_group_ids = ["${aws_security_group.devops_hosts.id}"]
   subnet_id = aws_subnet.devops.id
   key_name = var.key_name
@@ -166,7 +166,7 @@ resource "aws_instance" "ansible_host_01" {
 
 resource "aws_instance" "ansible_host_02" {
   ami           = var.default_ami
-  instance_type = "t2.micro"
+  instance_type = "t2.nano"
   vpc_security_group_ids = ["${aws_security_group.devops_hosts.id}"]
   subnet_id = aws_subnet.devops.id
   key_name = var.key_name
