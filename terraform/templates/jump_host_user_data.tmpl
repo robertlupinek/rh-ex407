@@ -13,10 +13,17 @@ echo "ansible-host-01 ansible_host=${ansible_host_01_private_ip}" >> /etc/ansibl
 echo "ansible-host-02 ansible_host=${ansible_host_02_private_ip}" >> /etc/ansible/hosts
 
 
+### Disable host key checking in ansible
+
+echo "export ANSIBLE_HOST_KEY_CHECKING=False" >> /home/centos/.bashrc
+
+
 ### Create the centos user's private key
 touch /home/centos/.ssh/id_rsa
 chown centos:centos /home/centos/.ssh/id_rsa
 chmod 0600 /home/centos/.ssh/id_rsa
+
+#Setup github project
 
 cd /home/centos
 git clone https://github.com/robertlupinek/rh-ex407.git
