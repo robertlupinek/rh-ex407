@@ -177,4 +177,4 @@ resource "aws_instance" "ansible_host_02" {
     Project = var.project_name
     instance-parker = "workdays"
   }
-}
+} 
