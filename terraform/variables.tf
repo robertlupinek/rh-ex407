@@ -42,3 +42,9 @@ variable "jump_host_private_ip" {
   description = "IP Address to assign to the jump host"
   default = "10.0.0.100"
 }
+
+variable "devops_kms_role" {
+  type = string
+  description = "Instance Role that has access to the KMS key for secrets."
+  default = "devops-kms"
+}
