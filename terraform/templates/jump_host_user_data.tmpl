@@ -4,7 +4,7 @@
 # to allow for easy target host setup.
 
 ### Install packages
-yum install git vim awscli zip ansible -y
+yum install wget git vim awscli zip ansible -y
 
 ### Create hosts file
 echo "[lab_servers]" >> /etc/ansible/hosts
@@ -23,8 +23,12 @@ touch /home/centos/.ssh/id_rsa
 chown centos:centos /home/centos/.ssh/id_rsa
 chmod 0600 /home/centos/.ssh/id_rsa
 
-#Setup github project
+### Setup github project
 
 cd /home/centos
 git clone https://github.com/robertlupinek/rh-ex407.git
 chown -R centos:centos rh-ex407
+
+
+### Download Sops
+rpm -ivh https://github.com/mozilla/sops/releases/download/v3.5.0/sops-v3.5.0-1.x86_64.rpm

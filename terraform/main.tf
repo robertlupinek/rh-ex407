@@ -136,6 +136,7 @@ resource "aws_instance" "jump_host" {
   subnet_id = aws_subnet.devops.id
   private_ip = var.jump_host_private_ip
   key_name = var.key_name
+  iam_instance_profile =
   root_block_device {
     delete_on_termination = true
   }
@@ -177,4 +178,4 @@ resource "aws_instance" "ansible_host_02" {
     Project = var.project_name
     instance-parker = "workdays"
   }
-} 
+}
