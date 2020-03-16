@@ -1,15 +1,18 @@
 ---
 
 - hosts: all
-  remote_user: root
+  #Specify the SSH User
+  remote_user: centos
+  #To sudo or not to sudo
+  become: true
 
   tasks:
   - name: Just running stat on a file to register output
 
     file:
-      path: /etc/ansible/inventory
+      path: /etc/ansible/hosts
       state: file
     register: file_stat
   - name: Debug output
     debug:
-      msg: {{ file_stat }}
+      msg: "{{ file_stat }}"
