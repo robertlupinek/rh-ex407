@@ -10,7 +10,7 @@
   - name: Just running stat on a file to register output
 
     file:
-      path: /etc/ansible/hosts
+      path: /tmp
       state: file
     register: file_stat
   - name: Debug output
