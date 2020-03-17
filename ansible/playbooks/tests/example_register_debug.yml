@@ -1,0 +1,25 @@
+---
+
+- hosts: all
+  #Specify the SSH User
+  remote_user: centos
+  #To sudo or not to sudo
+  become: true
+
+  tasks:
+  - name: Just running stat on a file to register output
+    file:
+      path: /etc/profile.d/less.sh
+      state: file
+    register: file_stat
+  - name: Debug output
+    debug:
+      msg: "All stats: {{ file_stat }} Just UID: {{ file_stat.uid }}"
+  - name: Create output file
+    file:
+      path: /tmp/out.out
+      state: touch
+  - name: Write output of register to file created above
+    lineinfile:
+      path: /tmp/out.out
+      line: "Just UID: {{ file_stat.uid }}"
