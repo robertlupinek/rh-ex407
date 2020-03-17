@@ -1,0 +1,17 @@
+---
+- hosts: all 
+  #Specify the SSH User
+  remote_user: centos
+  #To sudo or not to sudo
+  become: true
+
+  tasks:
+  - name: Create /etc/hosts file 
+    lineinfile:
+      path: /etc/hosts
+      line: "{{ hostvars[ item ].ansible_default_ipv4.address }} {{ item }}"
+      create: yes
+      state: present
+    with_items: "{{ groups.all }}"
+ 
+    

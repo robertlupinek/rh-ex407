@@ -1,0 +1,15 @@
+---
+
+- hosts: all
+  #Specify the SSH User
+  remote_user: centos
+  #To sudo or not to sudo
+  become: true
+
+  tasks:
+  - name: Debug output 1
+    debug:
+      msg: "{{ hostvars }}"
+  - name: Debug output 2
+    debug:
+      msg: "{{ groups.all }}"
