@@ -136,7 +136,7 @@ resource "aws_instance" "jump_host" {
   subnet_id = aws_subnet.devops.id
   private_ip = var.jump_host_private_ip
   key_name = var.key_name
-  iam_instance_profile = var.devops_kms_role
+  iam_instance_profile = var.devops_kms_role 
   root_block_device {
     delete_on_termination = true
   }
