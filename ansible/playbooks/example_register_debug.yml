@@ -8,7 +8,6 @@
 
   tasks:
   - name: Just running stat on a file to register output
-
     file:
       path: /etc/profile.d/less.sh
       state: file
