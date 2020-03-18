@@ -18,7 +18,16 @@
   - name: Create file when server is in a specific group
     lineinfile:
       path: /tmp/test.out
-      line: "This is a conditional test"
+      line: "This is a conditional test finding a value in a list"
       create: yes
       state: present
-    when: "'jump_hosts' in {{ group_names }}"
+    when: "'jump_hosts' in group_names"
+
+
+  - name: Create file when server has a certain variable set 
+    lineinfile:
+      path: /tmp/test.out
+      line: "This is a conditional test for variables"
+      create: yes
+      state: present
+    when: "do_it == 'do-it'" 
