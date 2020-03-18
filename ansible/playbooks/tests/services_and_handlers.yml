@@ -14,11 +14,19 @@
     notify:
       - restart_httpd
 
+  - name: Edit index.html
+    lineinfile:
+      path: /var/www/html/index.html
+      line: "This is a conditional test finding a value in a list"
+      create: yes
+      mode: 0755
+      state: present
+
 
   handlers:
-  
+
   - name: Restart httpd
-    service: 
+    service:
       name: httpd
       state: restarted
-    listen: "restart_httpd" 
+    listen: "restart_httpd"

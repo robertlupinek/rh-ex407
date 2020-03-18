@@ -1,0 +1,10 @@
+---
+- hosts: all
+  #Specify the SSH User
+  remote_user: centos
+  #To sudo or not to sudo
+  become: true
+
+  tasks:
+  - name: Useless task
+    shell: "Echo hello"

@@ -108,6 +108,14 @@ resource "aws_security_group" "devops_hosts" {
     protocol    = "tcp"
     security_groups = ["${aws_security_group.jump_hosts.id}"]
   }
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    security_groups = ["${aws_security_group.jump_hosts.id}"]
+  }
+
   egress {
     from_port   = 0
     to_port     = 0
@@ -136,7 +144,7 @@ resource "aws_instance" "jump_host" {
   subnet_id = aws_subnet.devops.id
   private_ip = var.jump_host_private_ip
   key_name = var.key_name
-  iam_instance_profile = var.devops_kms_role 
+  iam_instance_profile = var.devops_kms_role
   root_block_device {
     delete_on_termination = true
   }
