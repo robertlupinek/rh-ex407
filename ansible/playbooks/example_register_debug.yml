@@ -14,4 +14,12 @@
     register: file_stat
   - name: Debug output
     debug:
-      msg: "{{ file_stat }}"
+      msg: "All stats: {{ file_stat }} Just UID: {{ file_stat.uid }}"
+  - name: Create output file
+    file:
+      path: /tmp/out.out
+      state:touch
+  - name: Write output of register to file created above
+    lineinfile:
+      path: /tmp/out.out
+      line: "Just UID: {{ file_stat.uid }}"

@@ -1,17 +1,24 @@
 ---
-- hosts: all 
+- hosts: all
   #Specify the SSH User
   remote_user: centos
   #To sudo or not to sudo
   become: true
 
   tasks:
-  - name: Create /etc/hosts file 
+  - name: Create /etc/hosts file
     lineinfile:
       path: /etc/hosts
       line: "{{ hostvars[ item ].ansible_default_ipv4.address }} {{ item }}"
       create: yes
       state: present
     with_items: "{{ groups.all }}"
- 
-    
+
+
+  - name: Create file when server is in a specific group
+    lineinfile:
+      path: /tmp/test.out
+      line: "This is a conditional test"
+      create: yes
+      state: present
+    when: "jump_hosts" in "{{ group_names }}"
