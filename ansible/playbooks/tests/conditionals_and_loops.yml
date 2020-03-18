@@ -21,4 +21,4 @@
       line: "This is a conditional test"
       create: yes
       state: present
-    when: "jump_hosts" in "{{ group_names }}"
+    when: "'jump_hosts' in {{ group_names }}"
