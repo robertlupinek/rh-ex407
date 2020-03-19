@@ -8,3 +8,10 @@
   tasks:
   - name: Useless task
     shell: "Echo hello"
+
+  - name: Get files
+    get_url:
+        url: "http://{{item}}/index.hmtl"
+        dest: "/tmp/{{item}}"
+      ignore_errors:
+      with_items: "{{ ansible_groups.all }}"
