@@ -7,11 +7,11 @@
 
   tasks:
   - name: Useless task
-    shell: "Echo hello"
+    shell: "echo hello"
 
   - name: Get files
     get_url:
-        url: "http://{{item}}/index.hmtl"
-        dest: "/tmp/{{item}}"
-      ignore_errors: yes
-      with_items: "{{ groups.all }}"
+        url: "http://{{item}}/index.html"
+        dest: "/tmp/{{item}}.index.html"
+    ignore_errors: yes
+    with_items: "{{ groups.all }}"
