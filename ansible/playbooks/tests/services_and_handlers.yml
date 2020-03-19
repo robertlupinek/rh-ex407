@@ -23,7 +23,7 @@
   - name: Edit index.html
     lineinfile:
       path: /var/www/html/index.html
-      line: "This is a conditional test finding a value in a list"
+      line: "Welcome to the website!"
       create: yes
       mode: 0755
       state: present
