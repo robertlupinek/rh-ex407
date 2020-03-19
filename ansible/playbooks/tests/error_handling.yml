@@ -13,5 +13,5 @@
     get_url:
         url: "http://{{item}}/index.hmtl"
         dest: "/tmp/{{item}}"
-      ignore_errors:
-      with_items: "{{ ansible_groups.all }}"
+      ignore_errors: yes
+      with_items: "{{ groups.all }}"
