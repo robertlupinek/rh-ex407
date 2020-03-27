@@ -1,13 +1,13 @@
 ---
-- hosts: all
+- hosts: localhost 
   #Specify the SSH User
   remote_user: centos
   #To sudo or not to sudo
   become: true
 
   tasks:
-  - name: Useless task
-    shell: "echo hello"
+
+#Example of ignore 
 
   - name: Get files
     get_url:
@@ -15,3 +15,22 @@
         dest: "/tmp/{{item}}.index.html"
     ignore_errors: yes
     with_items: "{{ groups.all }}"
+
+
+# Example of block
+
+  - name: Get file with block
+    #Note the indent and dash with the tasks to try within the block
+    block:
+      - get_url:
+          url: "http://{{item}}/index.html"
+          dest: "/tmp/{{item}}.index.html"
+        with_items: "{{ groups.all }}"
+    #Run on error
+    rescue:
+      - debug: msg="File does not exist."
+    #ALWAYS run
+    always:
+      - debug: msg="Play done!"
+
+
