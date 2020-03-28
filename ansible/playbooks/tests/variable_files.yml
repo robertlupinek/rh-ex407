@@ -1,0 +1,17 @@
+---
+- hosts: localhost
+  become: yes
+  vars:
+    my_file: "/tmp/variables.out" 
+
+  tasks:
+
+  - name: Create file with stuff
+    lineinfile:
+      path: "{{ my_file }}"
+      line: "{{ item }}"
+      create: yes
+    with_items:
+     - "{{ staff }}"
+     - "{{ faculty }}"
+     - "{{ other }}" 

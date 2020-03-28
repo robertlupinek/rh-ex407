@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  vars_files: 
+    - ../../secrets/secrets.yml
+  tasks:
+  - name: Copy secret to config.conf
+    lineinfile: 
+      path: /tmp/config.conf
+      line: "{{ secret_1 }}"
+      create: yes 

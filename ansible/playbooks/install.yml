@@ -1,0 +1,7 @@
+---
+- hosts: web_servers
+  become: yes
+  roles:
+    - apache
+  vars:
+    server_name: super_potatoe
