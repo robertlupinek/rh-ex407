@@ -1,0 +1,11 @@
+---
+
+- hosts: localhost
+  
+
+  tasks:
+
+  - name: Deploy a template
+    template:
+      src: templates/network.j2
+      dest: /tmp/network.txt

@@ -1,0 +1,26 @@
+---
+
+- hosts: web_servers
+  become: yes
+  
+  tasks:
+
+  - name: Deploy silly index
+    copy:
+      src: ./files/html/index.html
+      dest: /var/www/html/
+    tags:
+      - webdeploy
+
+
+- hosts: database_servers 
+  become: yes
+
+  tasks:
+
+  - name: Deploy database configuration
+    copy:
+      src: ./files/config/db_config.ini
+      dest: /var/tmp/
+    tags:
+      - dbdeploy

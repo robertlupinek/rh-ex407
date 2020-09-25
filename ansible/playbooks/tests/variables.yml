@@ -1,0 +1,14 @@
+---
+
+- hosts: localhost
+  become: yes
+  vars:
+    inv_file: /tmp/inv.txt
+
+  tasks:
+
+  - name: Create file with stuff
+    lineinfile:
+      path: "{{ inv_file }}"
+      line: "{{ groups['web_servers']|join(' ') }}"
+      create: yes
