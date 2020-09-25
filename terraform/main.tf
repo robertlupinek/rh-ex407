@@ -191,3 +191,39 @@ resource "aws_instance" "ansible_host_02" {
     instance-parker = "workdays"
   }
 }
+
+resource "aws_instance" "ansible_host_03" {
+  ami           = var.default_ami
+  instance_type = "t2.micro"
+  vpc_security_group_ids = ["${aws_security_group.devops_hosts.id}"]
+  subnet_id = aws_subnet.devops.id
+  associate_public_ip_address = true
+  private_ip = "10.0.0.233"
+  key_name = var.key_name
+  root_block_device {
+    delete_on_termination = true
+  }
+  tags = {
+    Name = "${var.project_name}-ansible-host-03"
+    Project = var.project_name
+    instance-parker = "workdays"
+  }
+}
+
+resource "aws_instance" "ansible_host_04" {
+  ami           = var.default_ami
+  instance_type = "t2.micro"
+  vpc_security_group_ids = ["${aws_security_group.devops_hosts.id}"]
+  subnet_id = aws_subnet.devops.id
+  associate_public_ip_address = true
+  private_ip = "10.0.0.234"
+  key_name = var.key_name
+  root_block_device {
+    delete_on_termination = true
+  }
+  tags = {
+    Name = "${var.project_name}-ansible-host-04"
+    Project = var.project_name
+    instance-parker = "workdays"
+  }
+}

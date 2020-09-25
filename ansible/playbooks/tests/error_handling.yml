@@ -15,3 +15,5 @@
         dest: "/tmp/{{item}}.index.html"
     ignore_errors: yes
     with_items: "{{ groups.all }}"
+
+    
