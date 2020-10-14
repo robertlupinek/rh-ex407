@@ -37,12 +37,6 @@ variable "to_jump_cidr" {
   default = "x.x.x.x"
 }
 
-variable "jump_host_private_ip" {
-  type = string
-  description = "IP Address to assign to the jump host"
-  default = "10.0.0.100"
-}
-
 variable "devops_kms_role" {
   type = string
   description = "Instance Role that has access to the KMS key for secrets."
@@ -52,4 +46,17 @@ variable "devops_kms_role" {
 variable "ssh_key" {
   type = string
   description = "SSH for logging into hosts"
+}
+
+variable "instance_ips" {
+  type = map
+  description = "Map of private IP Addresses to statically assign to hosts"
+  default = {
+    jumphost = "10.0.0.80",
+    host1 = "10.0.0.80",
+    host2 = "10.0.0.232",
+    host3 = "10.0.0.233",
+    host4 = "10.0.0.234"
+  }
+
 }
