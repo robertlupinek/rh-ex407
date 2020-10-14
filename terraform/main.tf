@@ -135,7 +135,7 @@ resource "aws_instance" "jump_host" {
   instance_type = "t2.micro"
   vpc_security_group_ids = ["${aws_security_group.jump_hosts.id}"]
   subnet_id = aws_subnet.devops.id
-  private_ip = var.instance_ips["jumphost
+  private_ip = var.instance_ips["jumphost"]
   key_name = var.key_name
   iam_instance_profile = var.devops_kms_role
   root_block_device {
