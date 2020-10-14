@@ -18,8 +18,9 @@ echo 'carlton  ALL=(ALL)       NOPASSWD: ALL' >> /etc/sudoers
 mkdir /home/carlton/.ssh
 chmod 700 /home/carlton/.ssh
 chown carlton:carlton /home/carlton/.ssh
-echo ${ssh_key} > /home/carlton/.ssh/id_rsa
-chown carlton:carlton /home/centos/.ssh/id_rsa
+SSH_KEY=$(echo ${ssh_key} | base64 -d)
+echo $SSH_KEY > /home/carlton/.ssh/id_rsa
+chown carlton:carlton /home/carlton/.ssh/id_rsa
 chmod 0600 /home/carlton/.ssh/id_rsa
 cp /home/centos/.ssh/authorized_keys /home/carlton/.ssh/
 chown carlton:carlton /home/carlton/.ssh/authorized_keys
