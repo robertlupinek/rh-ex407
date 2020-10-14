@@ -26,7 +26,6 @@ chown carlton:carlton /home/centos/.ssh/authorized_keys
 
 ### Create inventory file
 cat > /etc/ansible/hosts << EOL
-echo "[lab_servers]" >> /etc/ansible/hosts
 jump-host ansible_host=${jump_host_private_ip}
 node1 ansible_host=${ansible_host_01_private_ip}
 node2 ansible_host=${ansible_host_02_private_ip}

@@ -52,7 +52,7 @@ jobs:
       - checkout
       - setup-environment-vars
       - run-terraform:
-          run_command: destroy
+          run_command: validate
       - run-terraform:
           run_command: plan -input=false
       - run-terraform:
