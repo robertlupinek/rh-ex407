@@ -8,31 +8,51 @@ yum install epel-release -y
 yum clean all -y
 yum install wget git vim awscli zip ansible screen -y
 
-### Create hosts file
-echo "[lab_servers]" >> /etc/ansible/hosts
-echo "jump-host ansible_host=${jump_host_private_ip}" >> /etc/ansible/hosts
-echo "ansible-host-01 ansible_host=${ansible_host_01_private_ip}" >> /etc/ansible/hosts
-echo "ansible-host-02 ansible_host=${ansible_host_02_private_ip}" >> /etc/ansible/hosts
-echo "ansible-host-03 ansible_host=${ansible_host_03_private_ip}" >> /etc/ansible/hosts
-echo "ansible-host-04 ansible_host=${ansible_host_04_private_ip}" >> /etc/ansible/hosts
+## Create the ansible user for the examples
+useradd carlton
 
-
-### Disable host key checking in ansible
-
-echo "export ANSIBLE_HOST_KEY_CHECKING=False" >> /home/centos/.bashrc
-
+## Configure the sudoers file
+echo 'carlton  ALL=(ALL)       NOPASSWD: ALL' >> /etc/sudoers
 
 ### Create the centos user's private key
-touch /home/centos/.ssh/id_rsa
-chown centos:centos /home/centos/.ssh/id_rsa
-chmod 0600 /home/centos/.ssh/id_rsa
+mkdir /home/carlton/.ssh
+chmod 700 /home/carlton/.ssh
+chown carlton:carlton /home/carlton/.ssh
+echo ${ssh_key} > /home/carlton/.ssh/id_rsa
+chown carlton:carlton /home/centos/.ssh/id_rsa
+chmod 0600 /home/carlton/.ssh/id_rsa
+cp /home/centos/.ssh/authorized_keys /home/carlton/.ssh/
+chown carlton:carlton /home/centos/.ssh/authorized_keys
+
+### Create inventory file
+cat > /etc/ansible/hosts << EOL
+echo "[lab_servers]" >> /etc/ansible/hosts
+jump-host ansible_host=${jump_host_private_ip}
+node1 ansible_host=${ansible_host_01_private_ip}
+node2 ansible_host=${ansible_host_02_private_ip}
+node3 ansible_host=${ansible_host_03_private_ip}
+node4 ansible_host=${ansible_host_04_private_ip}
+EOL
+
+### Create hosts file
+cat > /etc/hosts << EOL
+127.0.0.1               localhost.localdomain    localhost
+::1                     localhost6.localdomain6    localhost6
+${jump_host_private_ip} jump-host
+${ansible_host_01_private_ip} node1
+${ansible_host_02_private_ip} node2
+${ansible_host_03_private_ip} node3
+${ansible_host_04_private_ip} node4
+EOL
+
+### Disable host key checking in ansible
+echo "export ANSIBLE_HOST_KEY_CHECKING=False" >> /home/carlton/.bashrc
 
 ### Setup github project
 
-cd /home/centos
+cd /home/carlton
 git clone https://github.com/robertlupinek/rh-ex407.git
 chown -R centos:centos rh-ex407
-
 
 ### Download Sops
 rpm -ivh https://github.com/mozilla/sops/releases/download/v3.5.0/sops-v3.5.0-1.x86_64.rpm

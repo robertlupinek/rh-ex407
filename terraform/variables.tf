@@ -48,3 +48,8 @@ variable "devops_kms_role" {
   description = "Instance Role that has access to the KMS key for secrets."
   default = "devops-kms"
 }
+
+variable "ssh_key" {
+  type = string
+  description = "SSH for logging into hosts"
+}
