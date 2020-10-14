@@ -52,7 +52,7 @@ variable "instance_ips" {
   type = map
   description = "Map of private IP Addresses to statically assign to hosts"
   default = {
-    jumphost = "10.0.0.80",
+    jumphost = "10.0.0.5",
     host1 = "10.0.0.80",
     host2 = "10.0.0.232",
     host3 = "10.0.0.233",
