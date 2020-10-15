@@ -11,7 +11,7 @@ Repository for CI, IaC, and Ansible code, and notes for the RHCS Ansible EX407 E
 
 ---
 
-### System Configuration :
+### System Configuration
 
 The ec2 instance with the name tag of `devops-jump-host` will be used as the control node for deployment.
 
@@ -24,7 +24,7 @@ User carlton status:
 
 ---
 
-## Setup the jump host:
+## Setup the jump host
 
 ### Basic configuration
 - [ ] Validate ansible is installed at version 2.7
@@ -58,7 +58,7 @@ Create a bash script in /home/carlton/ansible/adhoc.sh that does the following:
 ```
 I am an awesome ansible managed node!
 ```
-- [ ] Create a yum repostory file with the following
+- [ ] Create a yum repository file with the following
   - [ ] Name: rpmforge
   - [ ] Description: RPMForge Yum repo
   - [ ] URL: http://apt.sw.be/redhat/el7/en/$basearch/rpmforge
@@ -77,4 +77,4 @@ Configure and use ansible-galaxy to use a requirements file to download roles.
 Using the provided rhel-system-roles a playbook named `/home/carlton/ansible/system-roles.yml` that will perform the following actions on `all` hosts:
 
 - [ ] Use the provided selinux role to set your system to `enforcing` and `targeted.
-- [ ] Set the time server as follows to `Need a time server...`. Keep all other settings as defaults.
+- [ ] Set the time server as follows to `pool.ntp.org`. Keep all other settings as defaults.
