@@ -74,7 +74,7 @@ Configure and use ansible-galaxy to use a requirements file to download roles.
 
 ## rhel-system-roles
 
-Using the provided rhel-system-roles a playbook named `/home/carlton/ansible/system-roles.yml` that will perform the following actions on `all` hosts:
+Using the provided rhel-system-roles create a playbook named `/home/carlton/ansible/system-roles.yml` that will perform the following actions on `all` hosts:
 
 - [ ] Use the provided selinux role to set your system to `enforcing` and `targeted.
 - [ ] Set the time server as follows to `pool.ntp.org`. Keep all other settings as defaults.
