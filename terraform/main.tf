@@ -131,7 +131,7 @@ resource "aws_eip" "jump_host" {
 ## Create a few small EBS volume
 
 resource "aws_ebs_volume" "ebs10g" {
-  size              =
+  size              = 10
   availability_zone = "us-east-1a"
   tags = {
     Name = "${var.project_name}-10g"
@@ -140,7 +140,7 @@ resource "aws_ebs_volume" "ebs10g" {
 }
 
 resource "aws_ebs_volume" "ebs1g" {
-  size              =
+  size              = 1
   availability_zone = "us-east-1a"
   tags = {
     Name = "${var.project_name}-1g"
