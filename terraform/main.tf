@@ -128,6 +128,36 @@ resource "aws_eip" "jump_host" {
   vpc      = true
 }
 
+## Create a few small EBS volume
+
+resource "aws_ebs_volume" "10g" {
+  size              = 10
+  tags = {
+    Name = "${var.project_name}-10g"
+    Project = var.project_name
+  }
+}
+
+resource "aws_ebs_volume" "1g" {
+  size              = 1
+  tags = {
+    Name = "${var.project_name}-1g"
+    Project = var.project_name
+  }
+}
+
+resource "aws_volume_attachment" "10g" {
+  device_name = "/dev/sdh"
+  volume_id   = aws_ebs_volume.10g.id
+  instance_id = aws_instance.web.id
+}
+
+resource "aws_volume_attachment" "1g" {
+  device_name = "/dev/sdh"
+  volume_id   = aws_ebs_volume.1g.id
+  instance_id = aws_instance.web.id
+}
+
 ## Jump host
 
 resource "aws_instance" "jump_host" {
@@ -146,10 +176,10 @@ resource "aws_instance" "jump_host" {
     Project = var.project_name
     instance-parker = "workdays"
   }
-  user_data = templatefile("${path.module}/templates/jump_host_user_data.tmpl", { ssh_key = var.ssh_key, jump_host_private_ip = var.instance_ips["jumphost"], ansible_host_01_private_ip = var.instance_ips["host1"], ansible_host_02_private_ip = var.instance_ips["host2"], ansible_host_03_private_ip = var.instance_ips["host3"], ansible_host_04_private_ip = var.instance_ips["host4"] })
+  user_data = templatefile("${path.module}/templates/jump_host_user_data.tmpl", { ssh_key = var.ssh_key, jump_host_private_ip = var.instance_ips["jumphost"], node1_private_ip = var.instance_ips["host1"], node2_private_ip = var.instance_ips["host2"], node3_private_ip = var.instance_ips["host3"], node4_private_ip = var.instance_ips["host4"] })
 }
 
-resource "aws_instance" "ansible_host_01" {
+resource "aws_instance" "node1" {
   ami           = var.default_ami
   instance_type = "t2.micro"
   vpc_security_group_ids = ["${aws_security_group.devops_hosts.id}"]
@@ -165,10 +195,10 @@ resource "aws_instance" "ansible_host_01" {
     Project = var.project_name
     instance-parker = "workdays"
   }
-  user_data = templatefile("${path.module}/templates/jump_host_user_data.tmpl", { ssh_key = var.ssh_key, jump_host_private_ip = var.instance_ips["jumphost"], ansible_host_01_private_ip = var.instance_ips["host1"], ansible_host_02_private_ip = var.instance_ips["host2"], ansible_host_03_private_ip = var.instance_ips["host3"], ansible_host_04_private_ip = var.instance_ips["host4"] })
+  user_data = templatefile("${path.module}/templates/jump_host_user_data.tmpl", { ssh_key = var.ssh_key, jump_host_private_ip = var.instance_ips["jumphost"], node1_private_ip = var.instance_ips["host1"], node2_private_ip = var.instance_ips["host2"], node3_private_ip = var.instance_ips["host3"], node4_private_ip = var.instance_ips["host4"] })
 }
 
-resource "aws_instance" "ansible_host_02" {
+resource "aws_instance" "node2" {
   ami           = var.default_ami
   instance_type = "t2.micro"
   vpc_security_group_ids = ["${aws_security_group.devops_hosts.id}"]
@@ -184,10 +214,10 @@ resource "aws_instance" "ansible_host_02" {
     Project = var.project_name
     instance-parker = "workdays"
   }
-  user_data = templatefile("${path.module}/templates/jump_host_user_data.tmpl", { ssh_key = var.ssh_key, jump_host_private_ip = var.instance_ips["jumphost"], ansible_host_01_private_ip = var.instance_ips["host1"], ansible_host_02_private_ip = var.instance_ips["host2"], ansible_host_03_private_ip = var.instance_ips["host3"], ansible_host_04_private_ip = var.instance_ips["host4"] })
+  user_data = templatefile("${path.module}/templates/jump_host_user_data.tmpl", { ssh_key = var.ssh_key, jump_host_private_ip = var.instance_ips["jumphost"], node1_private_ip = var.instance_ips["host1"], node2_private_ip = var.instance_ips["host2"], node3_private_ip = var.instance_ips["host3"], node4_private_ip = var.instance_ips["host4"] })
 }
 
-resource "aws_instance" "ansible_host_03" {
+resource "aws_instance" "node3" {
   ami           = var.default_ami
   instance_type = "t2.micro"
   vpc_security_group_ids = ["${aws_security_group.devops_hosts.id}"]
@@ -203,10 +233,10 @@ resource "aws_instance" "ansible_host_03" {
     Project = var.project_name
     instance-parker = "workdays"
   }
-  user_data = templatefile("${path.module}/templates/jump_host_user_data.tmpl", { ssh_key = var.ssh_key, jump_host_private_ip = var.instance_ips["jumphost"], ansible_host_01_private_ip = var.instance_ips["host1"], ansible_host_02_private_ip = var.instance_ips["host2"], ansible_host_03_private_ip = var.instance_ips["host3"], ansible_host_04_private_ip = var.instance_ips["host4"] })
+  user_data = templatefile("${path.module}/templates/jump_host_user_data.tmpl", { ssh_key = var.ssh_key, jump_host_private_ip = var.instance_ips["jumphost"], node1_private_ip = var.instance_ips["host1"], node2_private_ip = var.instance_ips["host2"], node3_private_ip = var.instance_ips["host3"], node4_private_ip = var.instance_ips["host4"] })
 }
 
-resource "aws_instance" "ansible_host_04" {
+resource "aws_instance" "node4" {
   ami           = var.default_ami
   instance_type = "t2.micro"
   vpc_security_group_ids = ["${aws_security_group.devops_hosts.id}"]
@@ -222,5 +252,5 @@ resource "aws_instance" "ansible_host_04" {
     Project = var.project_name
     instance-parker = "workdays"
   }
-  user_data = templatefile("${path.module}/templates/jump_host_user_data.tmpl", { ssh_key = var.ssh_key, jump_host_private_ip = var.instance_ips["jumphost"], ansible_host_01_private_ip = var.instance_ips["host1"], ansible_host_02_private_ip = var.instance_ips["host2"], ansible_host_03_private_ip = var.instance_ips["host3"], ansible_host_04_private_ip = var.instance_ips["host4"] })
+  user_data = templatefile("${path.module}/templates/jump_host_user_data.tmpl", { ssh_key = var.ssh_key, jump_host_private_ip = var.instance_ips["jumphost"], node1_private_ip = var.instance_ips["host1"], node2_private_ip = var.instance_ips["host2"], node3_private_ip = var.instance_ips["host3"], node4_private_ip = var.instance_ips["host4"] })
 }

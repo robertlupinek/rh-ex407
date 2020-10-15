@@ -65,6 +65,14 @@ I am an awesome ansible managed node!
   - [ ] GPG Check disabled
   - [ ] Repository enabled
 
+## LVM Configuration
+
+Mount create the following logical volume configuration
+
+- [ ] Create a volume group named vgextra
+  - [ ] Physical volume should be /dev/sdh
+
+
 ## Ansible galaxy
 
 Configure and use ansible-galaxy to use a requirements file to download roles.
