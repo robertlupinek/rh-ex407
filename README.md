@@ -52,7 +52,7 @@ Configure the ansible configuration as follows.
 
 ## Adhoc commands
 
-Create a bash script in /home/carlton/ansible/adhoc.sh that does the following:
+Create a bash script in /home/carlton/ansible/adhoc.sh that does the following to `all` hosts:
 
 - [ ] Put the following contents in /etc/motd
 ```
@@ -67,10 +67,15 @@ I am an awesome ansible managed node!
 
 ## LVM Configuration
 
-Mount create the following logical volume configuration
+Create a playbook file `/home/carlton/ansible/adhoc.` that runs against `all` nodes with the following logical volume configuration:
 
 - [ ] Create a volume group named vgextra
-  - [ ] Physical volume should be /dev/sdh
+  - [ ] Physical volume for volume group should be /dev/sdh
+  - [ ] If /dev/sdh does not exist then display error `"No /dev/sdh available to create pv."` and continue playbook
+- [ ] Create a logical volume named lvextra in the volume group vgextra with a size of 5Gib.
+  - [ ] If the volume group does not exist then display error `"No VG vgextra available to create lv."` and continue playbook.
+  - [ ] If the there is not enough space available in the volume group then display the error `"Space not available in VG vgextra to create lv."`
+- [ ] Create a 
 
 
 ## Ansible galaxy
