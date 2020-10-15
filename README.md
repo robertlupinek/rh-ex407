@@ -27,11 +27,11 @@ User carlton status:
 ## Setup the jump host:
 
 ### Basic configuration
-[checkbox:unchecked] Validate ansible is installed at version 2.7
-[checkbox:unchecked] Create directory the following directories `/home/carlton/ansible`
+- [ ] Validate ansible is installed at version 2.7
+- [ ] Create directory the following directories `/home/carlton/ansible`
 
 ### Configure inventory
-[checkbox:unchecked] Create an inventory file with the following group configurations in `/home/carlton/ansible/inventory`
+- [ ] Create an inventory file with the following group configurations in `/home/carlton/ansible/inventory`
 
 |host |group | child groups|
 |---|---|---|
@@ -45,36 +45,36 @@ User carlton status:
 ### Ansible configuration
 Configure the ansible configuration as follows.
 
-[checkbox:unchecked] Create ansible configuration in `/home/carlton/ansible/ansible.cfg`.
-[checkbox:unchecked] Add `/home/carlton/ansible/roles` to the roles path.
-[checkbox:unchecked] Set inventory following inventory in `/home/carlton/ansible/inventory.`
-[checkbox:unchecked] Set max forks to 10.
+- [ ] Create ansible configuration in `/home/carlton/ansible/ansible.cfg`.
+- [ ] Add `/home/carlton/ansible/roles` to the roles path.
+- [ ] Set inventory following inventory in `/home/carlton/ansible/inventory.`
+- [ ] Set max forks to 10.
 
 ## Adhoc commands
 
 Create a bash script in /home/carlton/ansible/adhoc.sh that does the following:
 
-[checkbox:unchecked] Put the following contents in /etc/motd
+- [ ] Put the following contents in /etc/motd
 ```
 I am an awesome ansible managed node!
 ```
-[checkbox:unchecked] Create a yum repostory file with the following
-  [checkbox:unchecked] Name: rpmforge
-  [checkbox:unchecked] Description: RPMForge Yum repo
-  [checkbox:unchecked] URL: http://apt.sw.be/redhat/el7/en/$basearch/rpmforge
-  [checkbox:unchecked] GPG Check disabled
-  [checkbox:unchecked] Repository enabled
+- [ ] Create a yum repostory file with the following
+  - [ ] Name: rpmforge
+  - [ ] Description: RPMForge Yum repo
+  - [ ] URL: http://apt.sw.be/redhat/el7/en/$basearch/rpmforge
+  - [ ] GPG Check disabled
+  - [ ] Repository enabled
 
 ## Ansible galaxy
 
 Configure and use ansible-galaxy to use a requirements file to download roles.
 
-[checkbox:unchecked] Create a requirements file in `/home/carlton/ansible/requirements.yaml`
-[checkbox:unchecked] Use Ansible galaxy to install the role in the requirements file to the `/home/carlton/ansible/roles` directory
+- [ ] Create a requirements file in `/home/carlton/ansible/requirements.yaml`
+- [ ] Use Ansible galaxy to install the role in the requirements file to the `/home/carlton/ansible/roles` directory
 
 ## rhel-system-roles
 
 Using the provided rhel-system-roles a playbook named `/home/carlton/ansible/system-roles.yml` that will perform the following actions on `all` hosts:
 
-[checkbox:unchecked] Use the provided selinux role to set your system to `enforcing` and `targeted.
-[checkbox:unchecked] Set the time server as follows to `Need a time server...`. Keep all other settings as defaults.
+- [ ] Use the provided selinux role to set your system to `enforcing` and `targeted.
+- [ ] Set the time server as follows to `Need a time server...`. Keep all other settings as defaults.
