@@ -147,14 +147,14 @@ resource "aws_ebs_volume" "ebs1g" {
 }
 
 resource "aws_volume_attachment" "ebs10g" {
-  device_name = "/dev/sdh" 
-  volume_id   = aws_ebs_volume.10g.id
+  device_name = "/dev/sdh"
+  volume_id   = aws_ebs_volume.ebs10g.id
   instance_id = aws_instance.node1.id
 }
 
 resource "aws_volume_attachment" "ebs1g" {
   device_name = "/dev/sdh"
-  volume_id   = aws_ebs_volume.1g.id
+  volume_id   = aws_ebs_volume.ebs1g.id
   instance_id = aws_instance.node4.id
 }
 
