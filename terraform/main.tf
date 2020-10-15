@@ -130,7 +130,7 @@ resource "aws_eip" "jump_host" {
 
 ## Create a few small EBS volume
 
-resource "aws_ebs_volume" "10g" {
+resource "aws_ebs_volume" "ebs10g" {
   size              = 10
   tags = {
     Name = "${var.project_name}-10g"
@@ -138,7 +138,7 @@ resource "aws_ebs_volume" "10g" {
   }
 }
 
-resource "aws_ebs_volume" "1g" {
+resource "aws_ebs_volume" "ebs1g" {
   size              = 1
   tags = {
     Name = "${var.project_name}-1g"
@@ -146,16 +146,16 @@ resource "aws_ebs_volume" "1g" {
   }
 }
 
-resource "aws_volume_attachment" "10g" {
+resource "aws_volume_attachment" "ebs10g" {
   device_name = "/dev/sdh"
   volume_id   = aws_ebs_volume.10g.id
-  instance_id = aws_instance.web.id
+  instance_id = aws_instance.node1.id
 }
 
-resource "aws_volume_attachment" "1g" {
+resource "aws_volume_attachment" "ebs1g" {
   device_name = "/dev/sdh"
   volume_id   = aws_ebs_volume.1g.id
-  instance_id = aws_instance.web.id
+  instance_id = aws_instance.node4.id
 }
 
 ## Jump host
