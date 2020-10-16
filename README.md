@@ -145,7 +145,7 @@ Create a role that sets up the httpd service the on the server in the `web` grou
    `I am your page!`
 - [ ] Create a symlink to /mypage/ from /var/www/html/mypage
 - [ ] Ensure when you browse to any of the nodes in the webserver at `http://<webserver node>/mypage/` you get the text `I am your page!` and not anything else.
-- [ ] Create and copy a file to `/mypage/system-report` with the following content:
+- [ ] Create and copy a file to `/mypage/system-report` with the following contents:
 ```
 HOSTNAME: ???
 MEMORY MB: ???
@@ -176,6 +176,8 @@ You will need to understand how to use ansible-vault to encrypt variables.
 
 ## Users
 
+Create users and user vault files in a playbook.
+
 - [ ] Create a variables file `/home/carlton/ansible/user_vars.yml` that contains the following
 ```
 ---
@@ -192,13 +194,15 @@ users:
 ```
 - [ ] Create playbook `/home/carlton/ansible/users.yml` that uses the variables from the encrypted `/home/carlton/ansible/secrets.yml` file to configure passwords.
 - [ ] Playbook should be run against all hosts.
-- [ ] Assign all users with password stored in the user_password variable from the vault encrypted `/home/carlton/ansible/secrets.yml` file.
+- [ ] Assign all users with password stored in the user_password variable, SHA-512 encryoted, from the vault encrypted `/home/carlton/ansible/secrets.yml` file.
 - [ ] Create users with a role of `manager` on `all` hosts.
 - [ ] Create users with a division of `ops` on nodes in the `prod` group.
 - [ ] Create users with a division of `qa` on nodes in the `dev` group and assign them the additional group `devtest`.
 - [ ] Run the playbook `/home/carlton/ansible/users.yml`
 
 ## System Report
+
+Download and configure a file using facts.
 
 - [ ] Create the playbook `/home/carlton/ansible/report.yml`
 - [ ] Playbook must download the file `http://node3/mypage/system-report` and copy it to each node
