@@ -111,7 +111,7 @@ I am an awesome ansible managed node!
 
 ## LVM Configuration
 
-Create a playbook file `/home/carlton/ansible/adhoc.` that runs against `all` nodes with the following logical volume configuration:
+Create a playbook file `/home/carlton/ansible/lvm.yml` that runs against `all` nodes with the following logical volume configuration:
 
 - [ ] Create a volume group named vgextra
   - [ ] Physical volume for volume group should be /dev/sdh
