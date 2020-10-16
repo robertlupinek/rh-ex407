@@ -8,7 +8,7 @@ Repository for CI, IaC, and Ansible code, and notes for the RHCS Ansible EX407 E
   * CirecleCI for automating this project.  
   * Requires some CircleCI environment variable to be setup that need to be documented if you want to use :o
 * ansible
-  * Just some sample code that I was messing around with for practicing.
+  * Just some sample code that I was messing around with for practicing.  Nothing in there is anything close being best or even good practice.  Just practice. :)
 * docker
   * WAS going to be a simple ansible docker image. Didn't need it YET.
 * lambda
