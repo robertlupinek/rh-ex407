@@ -66,4 +66,5 @@ rpm -ivh https://github.com/mozilla/sops/releases/download/v3.5.0/sops-v3.5.0-1.
 # Enable firewalld
 systemctl enable firewalld
 systemctl start firewalld
+wait 10
 firewall-cmd --zone=public --change-interface=eth0
