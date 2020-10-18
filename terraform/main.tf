@@ -127,7 +127,7 @@ resource "aws_security_group_rule" "devops_hosts" {
   to_port           = 80
   protocol          = "tcp"
   security_groups       = ["${aws_security_group.devops_hosts.id}"]
-  security_group_id = aws_security_group.devops_hosts.id
+  source_security_group_id = aws_security_group.devops_hosts.id
 }
 
 
