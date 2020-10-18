@@ -109,13 +109,29 @@ I am an awesome ansible managed node!
   - [ ] GPG Check disabled
   - [ ] Repository enabled
 
+## Create a hosts files
+
+Create a playbook `/home/carlton/ansible/lvm.yml` that runs against `all` nodes that performs the following:
+
+- [ ] Create a file  `/home/carlton/hosts.yml`
+  - [ ] File must have the following contents generate from template named `/home/carlton/hosts.j2` where hosts order doesn't matter:
+
+```
+127.0.0.1               localhost.localdomain    localhost
+::1                     localhost6.localdomain6    localhost6
+10.0.0.80 node1
+10.0.0.232 node2
+10.0.0.233 node3
+10.0.0.234 node4
+```
+
 ## LVM Configuration
 
 Create a playbook file `/home/carlton/ansible/lvm.yml` that runs against `all` nodes with the following logical volume configuration:
 
 - [ ] Create a volume group named vgextra
-  - [ ] Physical volume for volume group should be /dev/sdh
-  - [ ] If /dev/sdh does not exist then display error `"No /dev/sdh available to create pv."` and continue playbook
+  - [ ] Physical volume for volume group should be /dev/xvdh
+  - [ ] If /dev/xvdh does not exist then display error `"No /dev/xvdh available to create pv."` and continue playbook
 - [ ] Create a logical volume named lvextra in the volume group vgextra with a size of 5Gib.
   - [ ] If the volume group does not exist then display error `"No VG vgextra available to create lv."` and continue playbook.
   - [ ] If the there is not enough space available in the volume group then display the error `"Space not available in VG vgextra to create lv."`
@@ -135,10 +151,10 @@ Using the provided rhel-system-roles create a playbook named `/home/carlton/ansi
 
 Create a role that sets up the httpd service the on the server in the `web` group.
 
-- [ ] Create a role named webserver
+- [ ] Create a role named `webserver`.
 - [ ] Install the `httpd` service and configure it be available on reboot.
 - [ ] Create an file `/var/www/html/index.html` that replaces the <fqdn> with the fully qualified domain name and the <ip> with IP address of the node as follows:
-    `Hello!  I am <fqdn> with an <ip> of <IP Address?`
+    `Hello!  I am <fqdn> with an IP of <IP Address>.`
 - [ ] Install and enable the firewalld service.
 - [ ] Enable the httpd port in the node's local firewall.
 - [ ] Make a directory and file /mypage/index.html with the following contents:
@@ -152,7 +168,7 @@ MEMORY MB: ???
 XVDA GB: ???
 XVDA GB: ???
 ```
-
+- [ ] Create a playbook `/home/carlton/ansible/webserver.yml` that runs the `webserver` role you just created against hosts in the `dev` and `web` groups.
 
 ## Ansible galaxy
 
@@ -162,7 +178,7 @@ Configure and use ansible-galaxy to use a requirements file to download roles.
 - [ ] Use Ansible galaxy to install the role `geerlingguy.haproxy` in the requirements file to the `/home/carlton/ansible/roles` directory named `haproxy`
 - [ ] Create an and run the playbook `/home/carlton/ansible/haproxy.yml` that deploys the `haproxy` role downloaded from the requirements files.
   - [ ] Playbook should target nodes in the `proxy` group.
-  - [ ] Configure the backend servers to be the IP addresses of the servers in the web directory on port 80.
+  - [ ] Configure the backend servers to be the IP addresses of the servers in the `web` group on port 80.
 
 
 ## Vault Vault  Vault - always vault
@@ -194,7 +210,7 @@ users:
 ```
 - [ ] Create playbook `/home/carlton/ansible/users.yml` that uses the variables from the encrypted `/home/carlton/ansible/secrets.yml` file to configure passwords.
 - [ ] Playbook should be run against all hosts.
-- [ ] Assign all users with password stored in the user_password variable, SHA-512 encryoted, from the vault encrypted `/home/carlton/ansible/secrets.yml` file.
+- [ ] Assign all users with password stored in the user_password variable, SHA-512 encrypted, from the vault encrypted `/home/carlton/ansible/secrets.yml` file.
 - [ ] Create users with a role of `manager` on `all` hosts.
 - [ ] Create users with a division of `ops` on nodes in the `prod` group.
 - [ ] Create users with a division of `qa` on nodes in the `dev` group and assign them the additional group `devtest`.
@@ -204,14 +220,15 @@ users:
 
 Download and configure a file using facts.
 
-- [ ] Create the playbook `/home/carlton/ansible/report.yml`
-- [ ] Playbook must download the file `http://node3/mypage/system-report` and copy it to each node
+- [ ] Create the playbook `/home/carlton/ansible/report.yml` targeting `all` nodes.
+- [ ] Playbook must download the file `http://node3/mypage/system-report` and copy to `/home/carlton/report.txt` on each node.
 - [ ] Each node must replace the values in `???` in the file as follows:
 
 ```
 HOSTNAME: The hostname of the node
 MEMORY MB: Memory in MB
 XVDA GB: Size of device /dev/xvda in GB
-XVDH GB: Size of device /dev/xvda in GB
+XVDH GB: Size of device /dev/xvdh in GB
 ```
 - [ ] If a device or setting doesn't exist replace the `???` with the word `NONE`
+- [ ] Run the playbook `/home/carlton/ansible/report.yml`
