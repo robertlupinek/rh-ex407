@@ -1,0 +1,11 @@
+---
+users:
+  - username: bison
+    division: ops
+    role: manager
+  - username: cammy
+    division: ops
+    role: developer
+  - username: ryu
+    division: qa
+    role: qa

@@ -1,0 +1,5 @@
+[rpmforge]
+name=RPMForge Yum repo
+baseurl=http://download.fedoraproject.org/pub/epel/7/$basearch
+enabled=1
+gpgcheck=0

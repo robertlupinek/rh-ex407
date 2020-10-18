@@ -1,0 +1,8 @@
+---
+
+- hosts: dev web
+  become: true
+
+
+  roles:
+  - webserver

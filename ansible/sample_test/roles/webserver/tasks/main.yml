@@ -1,0 +1,72 @@
+---
+# tasks file for webserver
+
+- name: Install services
+  yum:
+    name: "{{ item }}"
+    state: present 
+  with_items:
+  - httpd
+  - firewalld
+
+- firewalld:
+    zone: public 
+    interface: eth0
+    permanent: yes
+    state: enabled
+  notify: restart_firewalld
+
+
+- name: Enable services
+  service:
+    name: "{{ item }}"
+    state: started
+    enabled: true
+  with_items:
+  - httpd
+  - firewalld
+
+- name: Enable httpd on the webservers
+  firewalld:
+    port: 80/tcp
+    permanent: yes
+    state: enabled 
+  notify: restart_firewalld 
+
+- name: Create index.html
+  template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+  notify: restart_httpd 
+
+- name: Create mypage directory
+  file:
+    path: /mypage
+    state: directory
+
+- name: Create a symbolic link
+  file:
+    src: /mypage 
+    dest: /var/www/html/mypage
+    state: link
+
+- name: Create index.html in mypage
+  lineinfile:
+    path: /mypage/index.html
+    line: "I am your page!"
+    create: true 
+
+- name: Create system report
+  copy:
+    src: system-report
+    dest: /mypage/system-report
+
+- name: Allow apache to modify files in /srv/git_repos
+  sefcontext:
+    target: '/mypage(/.*)?'
+    setype: httpd_sys_content_t 
+    state: present
+
+- name: Apply new SELinux file context to filesystem
+  command: restorecon -irv /mypage 
+

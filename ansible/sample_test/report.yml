@@ -1,0 +1,45 @@
+---
+- hosts: all
+  become: true
+
+  tasks:
+
+  - name: download the system report
+    get_url:
+      url: http://node3/mypage/system-report
+      dest: /home/carlton/report.txt
+      mode: 0755
+
+  - name: Hostname
+    lineinfile:
+      path: /home/carlton/report.txt
+      regexp: HOSTNAME
+      line: "HOSTNAME: {{ ansible_hostname }}"
+
+  - name: Memory
+    lineinfile:
+      path: /home/carlton/report.txt
+      regexp: MEMORY 
+      line: "MEMORY MB: {{ ansible_memtotal_mb }}"
+
+  - name: XVDA
+    lineinfile:
+      path: /home/carlton/report.txt
+      regexp: XVDA
+      line: "XVDA GB: {{ ansible_devices.xvda.size }}"
+
+
+
+  - name: Try /dev/xvdh
+    block:
+    - name: XVDH
+      lineinfile:
+        path: /home/carlton/report.txt
+        regexp: XVDH
+        line: "XVDH GB: {{ ansible_devices.xvdh.size }}"
+    rescue:
+    - name: XVDH
+      lineinfile:
+        path: /home/carlton/report.txt
+        regexp: XVDH 
+        line: "XVDH GB: NONE"  

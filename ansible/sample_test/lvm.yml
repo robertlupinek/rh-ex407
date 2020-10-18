@@ -1,0 +1,61 @@
+---
+
+- hosts: all
+  become: true
+
+
+  tasks:
+  - name: Install lvm
+    yum:
+      name: lvm2
+      state: present
+  - name: Attempt to create mount point from /dev/xdh
+    block:
+      - name: Create vg
+        lvg:
+          vg: vgextra
+          pvs: /dev/xvdh
+        register: vg_out
+      - name: Create lv
+        lvol:
+          lv: lvextra
+          vg: vgextra
+          size: 5G
+        register: lv_out
+      - name: create filesystem 
+        filesystem:
+          fstype: ext4
+          device: /dev/vgextra/lvextra
+      - name: Make mountpoint
+        file:  
+          state: directory
+          path: /mnt/extra
+      - name: Mount filesystem 
+        mount: 
+          src: /dev/vgextra/lvextra
+          path: /mnt/extra
+          fstype: ext4
+          state: present
+    rescue:
+      - name: VG Errors
+        block:
+        - name: Error if device missings
+          debug:
+            msg: "No /dev/sdh available to create pv."
+          when: "'not found' in vg_out.msg"
+        when:  "vg_out.msg is defined" 
+      - name: LV Errors
+        block:
+        - name: Insufficient Space 
+          debug:
+            msg: "Space not available in VG vgextra to create lv."
+          when: "'insufficient free space' in lv_out.err"
+        when: "lv_out.err is defined"
+  - name: Verify we still can act on hosts
+    block:
+      - name: Just a weeeee little test
+        shell: 'df -h'
+        register: shell_out
+      - name: Output stuff
+        debug: 
+          msg: "{{ shell_out }}"

@@ -1,0 +1,17 @@
+[dev]
+node1
+
+[proxy]
+node2
+
+[web]
+node3
+node4
+
+
+[prod]
+
+
+[prod:children]
+proxy
+web

@@ -1,0 +1,14 @@
+---
+# handlers file for webserver
+
+- name: Restart httpd
+  service:
+    name: httpd
+    state: restarted
+  listen: restart_httpd
+
+- name: Restart firewalld
+  service:
+    name: firewalld 
+    state: restarted
+  listen: restart_firewalld

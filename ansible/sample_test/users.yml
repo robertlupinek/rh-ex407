@@ -1,0 +1,43 @@
+---
+- hosts: all
+  become: true
+  vars_files:
+    - /home/carlton/ansible/secrets.yml
+    - /home/carlton/ansible/user_vars.yml
+  
+  tasks:
+    - name: De-buggin
+      debug:
+        msg: "{{ item }}"
+      with_items: "{{ users }}"
+
+    - name: Manager users
+      user: 
+        name: "{{ item.username }}"
+        password: "{{ user_password | password_hash('sha512') }}"
+      with_items: "{{users}}"
+      when: item.role == "manager"
+
+    - name: Prod Users
+      block:
+        - name: Create user 
+          user:
+            name: "{{ item.username }}"
+            password: "{{ user_password | password_hash('sha512') }}"
+          with_items: "{{users}}"
+          when: item.division == "ops"
+      when: "'prod' in group_names"
+
+    - name: QA Users
+      block:
+        - name: Create group
+          group:
+            name: devtest
+        - name: Create user
+          user:
+            name: "{{ item.username }}"
+            password: "{{ user_password | password_hash('sha512') }}"
+            groups: devtest
+          with_items: "{{users}}"
+          when: item.division == "qa"
+      when: "'dev' in group_names" 
