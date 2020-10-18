@@ -8,10 +8,7 @@ yum install epel-release -y
 yum clean all -y
 yum install firewalld lvm2 wget git vim awscli zip ansible screen -y
 
-# Enable firewalld
-systemctl enable firewalld
-systemctl start firewalld
-firewall-cmd --zone=public --change-interface=eth0
+
 
 
 ## Create the ansible user for the examples
@@ -64,3 +61,9 @@ chown -R centos:centos rh-ex407
 
 ### Download Sops
 rpm -ivh https://github.com/mozilla/sops/releases/download/v3.5.0/sops-v3.5.0-1.x86_64.rpm
+
+
+# Enable firewalld
+systemctl enable firewalld
+systemctl start firewalld
+firewall-cmd --zone=public --change-interface=eth0
