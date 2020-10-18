@@ -6,7 +6,13 @@
 ### Install packages
 yum install epel-release -y
 yum clean all -y
-yum install lvm2 wget git vim awscli zip ansible screen -y
+yum install firewalld lvm2 wget git vim awscli zip ansible screen -y
+
+# Enable firewalld
+systemctl enable firewalld
+systemctl start firewalld
+firewall-cmd --zone=public --change-interface=eth0
+
 
 ## Create the ansible user for the examples
 useradd carlton
