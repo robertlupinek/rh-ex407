@@ -46,6 +46,7 @@ variable "devops_kms_role" {
 variable "ssh_key" {
   type = string
   description = "SSH for logging into hosts"
+  default = ""
 }
 
 variable "instance_ips" {

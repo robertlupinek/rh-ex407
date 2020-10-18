@@ -30,10 +30,10 @@ chown carlton:carlton /home/carlton/.ssh/authorized_keys
 ### Create inventory file
 cat > /etc/ansible/hosts << EOL
 jump-host ansible_host=${jump_host_private_ip}
-node1 ansible_host=${ansible_host_01_private_ip}
-node2 ansible_host=${ansible_host_02_private_ip}
-node3 ansible_host=${ansible_host_03_private_ip}
-node4 ansible_host=${ansible_host_04_private_ip}
+node1 ansible_host=${node1_private_ip}
+node2 ansible_host=${node2_private_ip}
+node3 ansible_host=${node3_private_ip}
+node4 ansible_host=${node4_private_ip}
 EOL
 
 ### Create hosts file
@@ -41,10 +41,10 @@ cat > /etc/hosts << EOL
 127.0.0.1               localhost.localdomain    localhost
 ::1                     localhost6.localdomain6    localhost6
 ${jump_host_private_ip} jump-host
-${ansible_host_01_private_ip} node1
-${ansible_host_02_private_ip} node2
-${ansible_host_03_private_ip} node3
-${ansible_host_04_private_ip} node4
+${node1_private_ip} node1
+${node2_private_ip} node2
+${node3_private_ip} node3
+${node4_private_ip} node4
 EOL
 
 ### Disable host key checking in ansible
