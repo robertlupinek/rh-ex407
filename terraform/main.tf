@@ -121,6 +121,16 @@ resource "aws_security_group" "devops_hosts" {
   }
 }
 
+resource "aws_security_group_rule" "devops_hosts" {
+  type              = "ingress"
+  from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  security_groups       = ["${aws_security_group.devops_hosts.id}"]
+  security_group_id = aws_security_group.devops_hosts.id
+}
+
+
 ## Elastic IP Addresses
 
 resource "aws_eip" "jump_host" {
